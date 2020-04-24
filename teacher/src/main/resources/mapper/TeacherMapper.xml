@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stusys.cattan.teacher.mapper.TeacherMapper">
+    <resultMap id="BaseResultMap" type="com.stusys.cattan.teacher.entity.Teacher">
+        <id column="userid" jdbcType="BIGINT" property="userid"/>
+        <result column="teacherName" jdbcType="VARCHAR" property="TeacherName"/>
+        <result column="teacherID" jdbcType="BIGINT" property="TeacherID"/>
+        <result column="department" jdbcType="VARCHAR" property="gender"/>
+        <result column="email" jdbcType="VARCHAR" property="IDType"/>
+        <result column="phoneNumber" jdbcType="BIGINT" property="ID"/>
+    </resultMap>
+
+    <insert id="addTeacher" keyProperty="userid">
+		INSERT INTO teacher_status (userid, teacherName, teacherID, department, email, phoneNumber) VALUES
+			(#{userid}, #{teacherName}, #{teacherID}, #{department}, #{email}, #{phoneNumber})
+	</insert>
+
+    <select id="retrieveAllTeachers" resultType="com.stusys.cattan.teacher.entity.Teacher">
+		SELECT * FROM teacher_status
+	</select>
+
+    <select id="retrieveTeachersByDepartment" resultType="com.stusys.cattan.teacher.entity.Teacher">
+		SELECT * FROM teacher_status WHERE department = #{department}
+	</select>
+
+    <select id="retrieveTeachersByUserId" resultType="com.stusys.cattan.teacher.entity.Teacher">
+		SELECT * FROM teacher_status WHERE userid = #{userid}
+	</select>
+
+    <select id="retrieveTeacherByTeacherID" resultType="com.stusys.cattan.teacher.entity.Teacher">
+		SELECT * FROM teacher_status WHERE teacherID = #{teacherID}
+	</select>
+
+    <delete id="deleteTeacher">
+    	delete from teacher_status where teacherID = #{teacherID}
+  	</delete>
+
+</mapper>

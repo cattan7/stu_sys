@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stusys.cattan.course.mapper.CourseMapper">
+    <resultMap id="BaseResultMap" type="com.stusys.cattan.course.entity.Course">
+        <id column="courseID" jdbcType="BIGINT" property="courseID"/>
+        <result column="courseName" jdbcType="VARCHAR" property="courseName"/>
+        <result column="required" jdbcType="TINYINT" property="required"/>
+        <result column="credit" jdbcType="FLOAT" property="credit"/>
+    </resultMap>
+    <insert id="addCourse" useGeneratedKeys="true" keyProperty="courseID">
+		INSERT INTO course (courseID,courseName, required, credit, department) VALUES
+			(#{courseID}, #{courseName}, #{required}, #{credit}, #{department})
+	</insert>
+
+    <select id="retrieveAllCourses" resultType="com.stusys.cattan.course.entity.Course">
+		SELECT * FROM course
+	</select>
+
+    <select id="retrieveCoursesByDep" resultType="com.stusys.cattan.course.entity.Course">
+		SELECT * FROM course WHERE department = #{department}
+	</select>
+
+    <select id="retrieveCourseByCourseName" resultType="com.stusys.cattan.course.entity.Course">
+		SELECT * FROM course WHERE courseName = #{courseName}
+	</select>
+
+    <select id="retrieveCourseByCourseID" resultType="com.stusys.cattan.course.entity.Course">
+		SELECT * FROM course WHERE courseID = #{courseID}
+	</select>
+
+    <delete id="deleteCourseByCourseID">
+    	delete from course where courseID = #{courseID}
+  	</delete>
+
+</mapper>

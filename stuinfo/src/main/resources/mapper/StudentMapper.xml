@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stusys.cattan.stuinfo.mapper.StudentMapper">
+    <resultMap id="BaseResultMap" type="com.stusys.cattan.stuinfo.entity.Student">
+        <id column="userid" jdbcType="BIGINT" property="userid"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="studentID" jdbcType="BIGINT" property="studentID"/>
+        <result column="gender" jdbcType="VARCHAR" property="gender"/>
+        <result column="IDType" jdbcType="VARCHAR" property="IDType"/>
+        <result column="ID" jdbcType="BIGINT" property="ID"/>
+        <result column="department" jdbcType="VARCHAR" property="department"/>
+        <result column="major" jdbcType="VARCHAR" property="marjor"/>
+        <result column="degree" jdbcType="VARCHAR" property="degree"/>
+        <result column="entrancedAt" jdbcType="TIMESTAMP" property="entrancedAt"/>
+        <result column="graduatedAt" jdbcType="TIMESTAMP" property="graduatedAt"/>
+        <result column="nationality" jdbcType="VARCHAR" property="nationality"/>
+        <result column="censusRegistration" jdbcType="VARCHAR" property="censusRegistration"/>
+        <result column="homeAdd" jdbcType="VARCHAR" property="homeAdd"/>
+        <result column="emergencyContact" jdbcType="VARCHAR" property="emergencyContact"/>
+    </resultMap>
+
+    <insert id="addStudent" keyProperty="userid">
+		INSERT INTO student_status (userid, name, studentID, gender, IDtype, ID, department, major, degree, entrancedAt, nationality, censusRegistration, homeAdd, emergencyContact) VALUES
+			(#{userid}, #{name}, #{studentID}, #{gender}, #{IDtype}, #{ID}, #{department}, #{major}, #{degree}, #{entrancedAt}, #{nationality}, #{censusRegistration}, #{homeAdd}, #{emergencyContact})
+	</insert>
+
+    <select id="retrieveAllStudents" resultType="com.stusys.cattan.stuinfo.entity.Student">
+		SELECT * FROM student_status
+	</select>
+
+    <select id="retrieveStudentsByDepartment" resultType="com.stusys.cattan.stuinfo.entity.Student">
+		SELECT * FROM student_status WHERE department = #{department}
+	</select>
+
+    <select id="retrieveStudentsByDepAndMajor" resultType="com.stusys.cattan.stuinfo.entity.Student">
+		SELECT * FROM student_status WHERE department = #{department} AND major = #{major}
+	</select>
+
+    <select id="retrieveStudentsByDepAndMajorAndDegree" resultType="com.stusys.cattan.stuinfo.entity.Student">
+		SELECT * FROM student_status WHERE department = #{department} AND major = #{major} AND degree = #{degree}
+	</select>
+
+    <select id="retrieveStudentsByDepAndDegree" resultType="com.stusys.cattan.stuinfo.entity.Student">
+		SELECT * FROM student_status WHERE department = #{department} AND degree = #{degree}
+	</select>
+
+    <select id="retrieveUserById" resultType="com.stusys.cattan.stuinfo.entity.Student">
+		SELECT * FROM student_status WHERE userid = #{userid}
+	</select>
+
+    <select id="retrieveStudentByUserId" resultType="com.stusys.cattan.stuinfo.entity.Student">
+		SELECT * FROM student_status WHERE userid = #{userid}
+	</select>
+
+    <select id="retrieveStudentByStudentID" resultType="com.stusys.cattan.stuinfo.entity.Student">
+		SELECT * FROM student_status WHERE studentID = #{studentID}
+	</select>
+
+    <delete id="deleteStudentByStudentID">
+    	delete from student_status where studentID = #{studentID}
+  	</delete>
+
+
+</mapper>

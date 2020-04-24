@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/account-server/account-server.iml" filepath="$PROJECT_DIR$/account-server/account-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eureka-server/eureka-server.iml" filepath="$PROJECT_DIR$/eureka-server/eureka-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/order-server/order-server.iml" filepath="$PROJECT_DIR$/order-server/order-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/springcloud-eureka-feign-mybatis-seata.iml" filepath="$PROJECT_DIR$/springcloud-eureka-feign-mybatis-seata.iml" />
+      <module fileurl="file://$PROJECT_DIR$/storage-server/storage-server.iml" filepath="$PROJECT_DIR$/storage-server/storage-server.iml" />
+    </modules>
+  </component>
+</project>

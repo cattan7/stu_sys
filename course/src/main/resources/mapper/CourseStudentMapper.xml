@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stusys.cattan.course.mapper.CourseStudentMapper">
+    <resultMap id="BaseResultMap" type="com.stusys.cattan.course.entity.CourseInstance">
+        <id column="courseInstanceID" jdbcType="BIGINT" property="courseInstanceID"/>
+        <result column="courseID" jdbcType="BIGINT" property="courseID"/>
+        <result column="teacherID" jdbcType="BIGINT" property="teacherID"/>
+        <result column="evaluationMode" jdbcType="VARCHAR" property="evaluationMode"/>
+        <result column="time" jdbcType="VARCHAR" property="time"/>
+        <result column="courseName" jdbcType="VARCHAR" property="courseName"/>
+        <result column="required" jdbcType="VARCHAR" property="required"/>
+        <result column="credit" jdbcType="DOUBLE" property="credit"/>
+    </resultMap>
+
+    <insert id="addCourseStudent" useGeneratedKeys="true" keyProperty="courseStudentID">
+			INSERT INTO course_student (courseStudentID, courseInstanceID, studentID) VALUES
+				(#{courseStudentID}, #{courseInstanceID}, #{studentID})
+	</insert>
+
+    <select id="retrieveCourseInstanceByStudentID" resultType="com.stusys.cattan.course.response.CourseStudentRes">
+        SELECT l.*, c.* FROM course_student l, course_instance c WHERE l.studentID= #{studentID} AND l.courseInstanceID = c.courseInstanceID;
+    </select>
+
+    <select id="retrieveStudentByCourseInstanceID" resultType="com.stusys.cattan.course.response.CourseInstanceRes">
+        SELECT c.* FROM course_student WHERE l.studentID= #{studentID} AND l.courseInstanceID = c.courseInstanceID;
+    </select>
+
+    <select id="retrieveCourseStudentsByCourseInstanceID" resultType="com.stusys.cattan.course.entity.CourseStudent">
+        SELECT * FROM course_student WHERE courseInstanceID= #{courseInstanceID}
+    </select>
+
+    <select id="retrieveCourseInstanceByIDAndStudent" resultType="com.stusys.cattan.course.entity.CourseStudent">
+        SELECT * FROM course_student WHERE courseInstanceID= #{courseInstanceID} AND studentID= #{studentID}
+    </select>
+
+    <update id="updateGrade">
+        UPDATE course_student SET grade = #{grade}
+            WHERE courseStudentID = #{courseStudentID}
+    </update>
+
+    <delete id="deleteCourseInstanceInstanceByCourseStudentID">
+			delete from course_student where courseStudentID = #{courseStudentID}
+	</delete>
+
+</mapper>

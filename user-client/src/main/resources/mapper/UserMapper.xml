@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stusys.cattan.userclient.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="com.stusys.cattan.userclient.entity.User">
+        <id column="userid" jdbcType="BIGINT" property="userid"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="role" jdbcType="CHAR" property="role"/>
+        <result column="createdAt" jdbcType="TIMESTAMP" property="createdat"/>
+        <result column="active" jdbcType="TINYINT" property="active"/>
+        <result column="creator" jdbcType="BIGINT" property="creator"/>
+    </resultMap>
+    <insert id="addUser" useGeneratedKeys="true" keyProperty="userid">
+		INSERT INTO user (userid,username, password,role, createdAt, active) VALUES
+			(#{userid}, #{username}, #{password}, #{role}, #{createdAt}, #{active})
+	</insert>
+
+    <select id="retrieveUserByUserName" resultType="com.stusys.cattan.userclient.entity.User">
+		SELECT * FROM user WHERE username = #{username}
+	</select>
+
+    <select id="retrieveUserById" resultType="com.stusys.cattan.userclient.entity.User">
+		SELECT * FROM user WHERE userid = #{userid}
+	</select>
+    <select id="retrieveUsersByRole" resultType="com.stusys.cattan.userclient.entity.User">
+		SELECT * FROM user WHERE role = #{role}
+	</select>
+
+    <select id="retrieveAllUsers" resultType="com.stusys.cattan.userclient.entity.User">
+		SELECT * FROM user
+	</select>
+
+    <delete id="deleteUserByUserid">
+    	delete from user where userid = #{userid}
+  	</delete>
+
+</mapper>

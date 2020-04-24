@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stusys.cattan.course.mapper.CourseInstanceMapper">
+    <resultMap id="BaseResultMap" type="com.stusys.cattan.course.entity.CourseInstance">
+        <id column="courseInstanceID" jdbcType="BIGINT" property="courseInstanceID"/>
+        <result column="courseID" jdbcType="BIGINT" property="courseID"/>
+        <result column="teacherID" jdbcType="BIGINT" property="teacherID"/>
+        <result column="evaluationMode" jdbcType="VARCHAR" property="evaluationMode"/>
+        <result column="time" jdbcType="VARCHAR" property="time"/>
+        <result column="courseName" jdbcType="VARCHAR" property="courseName"/>
+        <result column="required" jdbcType="VARCHAR" property="required"/>
+        <result column="credit" jdbcType="DOUBLE" property="credit"/>
+    </resultMap>
+
+    <insert id="addCourseInstance" useGeneratedKeys="true" keyProperty="courseInstanceID">
+			INSERT INTO course_instance (courseInstanceID, courseID, teacherID, evaluationMode, time) VALUES
+				(#{courseInstanceID}, #{courseID}, #{teacherID}, #{evaluationMode}, #{time})
+	</insert>
+
+    <select id="retrieveAllCourseInstances" resultType="com.stusys.cattan.course.response.CourseInstanceRes">
+        SELECT l.*, c.* FROM course l, course_instance c WHERE l.courseID = c.courseID;
+    </select>
+
+    <select id="retrieveCourseInstanceByID" resultType="com.stusys.cattan.course.response.CourseInstanceRes">
+        SELECT l.*, c.* FROM course_instance l, course c WHERE l.courseInstanceID= #{courseInstanceID} AND l.courseID = c.courseID;
+    </select>
+
+    <select id="retrieveCourseInstanceByIDAndTeacher" resultType="com.stusys.cattan.course.response.CourseInstanceRes">
+        SELECT l.*, c.* FROM course_instance l, course c WHERE l.courseID= #{courseID} AND l.teacherID= #{teacherID} AND l.courseID = c.courseID;
+    </select>
+
+    <select id="retrieveCourseInstancesByTeacherID" resultType="com.stusys.cattan.course.response.CourseInstanceRes">
+		SELECT l.*, c.* FROM course_instance l, course c WHERE l.teacherID= #{teacherID} AND l.courseID = c.courseID;
+	</select>
+
+    <select id="retrieveCourseInstancesByCourseName" resultType="com.stusys.cattan.course.response.CourseInstanceRes">
+			SELECT l.*, c.* FROM course_instance l, course c WHERE c.courseName= #{courseName} AND l.courseID = c.courseID;
+	</select>
+
+    <delete id="deleteCourseInstanceInstanceByCourseInstanceID">
+			delete from course_instance where courseInstanceID = #{courseInstanceID}
+	</delete>
+
+</mapper>
