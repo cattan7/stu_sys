@@ -20,7 +20,7 @@ public class User {
 
     private Date createdAt;
 
-    private Byte active;
+    private Boolean active;
 
     private Long creator;
 }

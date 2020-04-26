@@ -22,7 +22,6 @@ import java.util.stream.Collectors;
 public class CourseInstanceService {
     @Resource
     private CourseInstanceMapper courseInstanceMapper;
-    private CourseMapper courseMapper;
 
     @Autowired
     private TeacherFeignService teacherFeignService;

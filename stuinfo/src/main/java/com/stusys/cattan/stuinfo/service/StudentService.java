@@ -21,15 +21,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
 @Slf4j
+@Service
 
 public class StudentService {
     @Resource
     private StudentMapper studentMapper;
 
-    //    @Autowired
-//    private UserFeignService userFeignService;
     @Autowired
     private UserFeignService userFeignService;
 
@@ -56,6 +54,7 @@ public class StudentService {
 
         //3. 注册学生
         log.info("Add student " + addStudentRequest.getName() + " " + addStudentRequest.getStudentID());
+
         try {
             student = Student.builder()
                     .userid(response.getBody().getData())
@@ -77,6 +76,7 @@ public class StudentService {
             log.info("Add student succeed " + student.getStudentID());
             return student.getStudentID();
         } catch (Exception e) {
+            //4. 发生错误，则回滚
             log.info("Add student failed " + student.getUserid());
             this.deleteStudent(addStudentRequest.getStudentID());
             userFeignService.deleteUser(student.getUserid());

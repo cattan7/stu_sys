@@ -43,7 +43,7 @@ public class StudentController {
     }
 
     @GetMapping("/student/{studentID}/v1")
-    @ApiOperation("管理员注册学生")
+    @ApiOperation("管理员获取学生")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "studentID", value = "学号", required = true, dataType = "Long", paramType = "path"),
     })

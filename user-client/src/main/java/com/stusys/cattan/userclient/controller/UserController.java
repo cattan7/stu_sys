@@ -8,8 +8,6 @@ import com.github.pagehelper.PageInfo;
 import com.stusys.cattan.userclient.common.BaseResponse;
 import com.stusys.cattan.userclient.common.ResultList;
 import com.stusys.cattan.userclient.entity.User;
-import com.stusys.cattan.userclient.exception.UserAlreadyExistsException;
-import com.stusys.cattan.userclient.mapper.UserMapper;
 
 import com.stusys.cattan.userclient.request.AddUserRequest;
 import com.stusys.cattan.userclient.service.UserService;
@@ -20,25 +18,21 @@ import io.swagger.annotations.ApiOperation;
 
 import lombok.extern.slf4j.Slf4j;
 
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.Date;
-import java.util.List;
+import java.security.Principal;
 
 @Slf4j
 @Api(tags = "用户业务信息相关API")
 @RestController
-@Transactional
 public class UserController {
     @Resource
     private UserService userService;
 
     @PostMapping("/users/v1")
-    @ApiOperation("管理员添加用户")
+    @ApiOperation("新建用户")
     public ResponseEntity<BaseResponse<Long>> createUser
             (
                     @RequestBody AddUserRequest addUserRequest
@@ -60,8 +54,7 @@ public class UserController {
     public ResponseEntity<BaseResponse<ResultList<User>>> retrieveUsers
             (
                     @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
-                    @RequestParam(value = "size", required = false, defaultValue = "8") Integer size,
-                    Authentication authentication
+                    @RequestParam(value = "size", required = false, defaultValue = "8") Integer size
             ) {
         try {
             log.info("Starting retrieve all users");
@@ -82,7 +75,7 @@ public class UserController {
     }
 
     @GetMapping("/users/role/{role}/v1")
-    @ApiOperation("获取某角色下的用户")
+    @ApiOperation("使用角色查询用户")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "role", value = "角色名", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "page", value = "页数", required = false, defaultValue = "1", dataType = "int"),
@@ -112,7 +105,7 @@ public class UserController {
     }
 
     @GetMapping("/users/{userid}/v1")
-    @ApiOperation("获取某角色下的用户")
+    @ApiOperation("使用用户名查询用户")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userid", value = "角色名", required = true, dataType = "Long", paramType = "path")
     })
@@ -133,7 +126,7 @@ public class UserController {
     }
 
     @DeleteMapping("/users/{userid}/v1")
-    @ApiOperation("管理员删除用户")
+    @ApiOperation("删除用户")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userid", value = "角色名", required = true, dataType = "Long", paramType = "path")
     })
@@ -147,8 +140,25 @@ public class UserController {
         }
     }
 
+    @GetMapping("/users/name/v1")
+    @ApiOperation("使用用户名查询用户")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", value = "页数", required = false, defaultValue = "1", dataType = "int"),
+            @ApiImplicitParam(name = "size", value = "每页个数", required = false, defaultValue = "8", dataType = "int"),
+            @ApiImplicitParam(name = "userName", value = "用户名", required = true, defaultValue = "", dataType = "string"),
+    })
+    public ResponseEntity<BaseResponse<ResultList<User>>> retrieveUsersByName
+            (
+                    @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
+                    @RequestParam(value = "size", required = false, defaultValue = "8") Integer size,
+                    @RequestParam(value = "userName", required = true, defaultValue = "") String userName
+            ) {
+        return ResponseEntity.ok().body(new BaseResponse<>());
+
+    }
+
     @GetMapping("/feign/users/{userid}/v1")
-    @ApiOperation("获取某角色下的用户")
+    @ApiOperation("使用ID查询用户")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userid", value = "角色名", required = true, dataType = "Long", paramType = "path")
     })
@@ -166,6 +176,14 @@ public class UserController {
         } finally {
 
         }
+    }
 
+
+
+    @GetMapping("/user/login/v1")
+    @ApiOperation("使用token，获取已登陆的用户")
+    public Principal user(Principal user){
+        log.info("retrieve login user"+user);
+        return user;
     }
 }

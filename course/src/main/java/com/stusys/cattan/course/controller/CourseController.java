@@ -273,7 +273,7 @@ public class CourseController {
     @ApiOperation("获取课程实例")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "teacherID", value = "教师编号", required = true, dataType = "Long", paramType = "path"),
-            @ApiImplicitParam(name = "cpurseID", value = "课程编号", required = true, dataType = "Long", paramType = "path")
+            @ApiImplicitParam(name = "courseID", value = "课程编号", required = true, dataType = "Long", paramType = "path")
 
     })
     public ResponseEntity<BaseResponse<CourseInstanceRes>> retrieveCourseInstanceByIDAndTeacherID
@@ -289,7 +289,7 @@ public class CourseController {
     }
 
     @PostMapping("/course-student/v1")
-    @ApiOperation("管理员分配课程")
+    @ApiOperation("学生选课")
     public ResponseEntity<BaseResponse<Object>> addCourseStudent
             (
                     @RequestBody CourseStudent courseStudent

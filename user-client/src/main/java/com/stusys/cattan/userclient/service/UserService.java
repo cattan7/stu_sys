@@ -150,6 +150,7 @@ public class UserService implements UserDetailsService {
             String errorMsg = "The user with name " + s + " doesn't exist.";
             throw new UserNotExistsException(errorMsg, null, null);
         }
+        log.info("Retrieve users by name succeed");
         return user;
 
     }

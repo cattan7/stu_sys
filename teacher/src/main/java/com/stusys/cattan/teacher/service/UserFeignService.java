@@ -20,7 +20,7 @@ public class UserFeignService {
 
     @PostMapping("/users/v1")
     public ResponseEntity<BaseResponse<Long>> addUser(@RequestBody AddUserRequest addUserRequest) {
-        Byte active = 1;
+        Boolean active = true;
         Date current = new Date();
         User user = User.builder()
                 .username(addUserRequest.getUserName())
